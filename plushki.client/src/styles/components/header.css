@@ -1,0 +1,219 @@
+﻿/* Header Styles */
+header {
+    background-color: var(--white);
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-sm) 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: var(--font-size-xl);
+    font-weight: bold;
+    color: var(--secondary-color);
+    white-space: nowrap;
+}
+
+    .logo span {
+        color: var(--text-color);
+    }
+
+    .logo a {
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-xs);
+    }
+
+    .logo i {
+        font-size: var(--font-size-xl);
+    }
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+    .user-actions a {
+        text-decoration: none;
+        color: var(--text-color);
+        font-size: var(--font-size-sm);
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-xs);
+        white-space: nowrap;
+    }
+
+        .user-actions a:hover {
+            color: var(--primary-color);
+        }
+
+        .user-actions a .fa-heart {
+            color: var(--error-color);
+        }
+
+        .user-actions a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+.btn {
+    background: none;
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: var(--font-size-sm);
+    font-family: inherit;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    white-space: nowrap;
+}
+
+    .btn:hover {
+        color: var(--primary-color);
+    }
+
+    .btn:focus-visible {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+    }
+
+/* Скрываем текст на мобильных, оставляем только иконку */
+@media (max-width: 768px) {
+    .btn span,
+    .btn .text {
+        display: none;
+    }
+}
+
+/* Navigation */
+nav {
+    margin-top: var(--spacing-md);
+}
+
+nav ul {
+        display: flex;
+        list-style: none;
+        gap: var(--spacing-lg);
+        overflow-x: auto;
+        padding-bottom: var(--spacing-xs);
+        -webkit-overflow-scrolling: touch;
+    }
+
+nav ul li {
+            flex-shrink: 0;
+        }
+
+nav ul li a {
+                text-decoration: none;
+                color: var(--text-color);
+                font-weight: 500;
+                font-size: var(--font-size-sm);
+                transition: var(--transition);
+                padding-bottom: var(--spacing-xs);
+                white-space: nowrap;
+                display: block;
+            }
+
+nav ul li a:hover,
+nav ul li a.active {
+                    color: var(--primary-color);
+                    border-bottom: 2px solid var(--primary-color);
+                }
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    header {
+        padding: var(--spacing-xs) 0;
+    }
+
+    .header-top {
+        gap: var(--spacing-sm);
+    }
+
+    .logo {
+        font-size: var(--font-size-lg);
+        flex-shrink: 0;
+    }
+
+        .logo i {
+            font-size: var(--font-size-lg);
+        }
+
+    .user-actions {
+        gap: var(--spacing-sm);
+    }
+
+        .user-actions a {
+            font-size: var(--font-size-xs);
+            gap: var(--spacing-xs);
+        }
+
+            .user-actions a span {
+                display: none; /* Скрываем текст, оставляем только иконки на мобильных */
+            }
+
+    nav {
+        margin-top: var(--spacing-sm);
+    }
+
+        nav ul {
+            gap: var(--spacing-md);
+        }
+
+            nav ul li a {
+                font-size: var(--font-size-xs);
+                padding: var(--spacing-xs) 0;
+            }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+
+    .logo {
+        font-size: var(--font-size-md);
+    }
+
+    .user-actions {
+        gap: var(--spacing-xs);
+    }
+
+        .user-actions a {
+            padding: var(--spacing-xs);
+        }
+
+    nav ul {
+        gap: var(--spacing-sm);
+    }
+}
+
+/* Hide navigation on very small screens if needed */
+@media (max-width: 360px) {
+    nav {
+        display: none; /* Скрываем навигацию на очень маленьких экранах */
+    }
+
+    .header-top {
+        justify-content: space-between;
+        width: 100%;
+    }
+}
