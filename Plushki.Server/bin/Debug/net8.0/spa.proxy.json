@@ -3,7 +3,7 @@
 "ServerUrl": "https://localhost:52080",
 "RedirectUrl": "",
 "LaunchCommand": "npm run dev",
-"WorkingDirectory": "C:\\Users\\max20\\source\\repos\\Plushki\\Plushki.Server\\..\\plushki.client",
+"WorkingDirectory": "D:\\Projects\\IPS\\Plushki\\Plushki.Server\\..\\plushki.client",
 "MaxTimeoutInSeconds": "120",
 "KeepRunning": "false"
 }

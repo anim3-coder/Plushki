@@ -29,7 +29,7 @@ const HotelHeader: React.FC<HotelHeaderProps> = ({
     adults,
     children
 }) => {
-    const ratingClass = rating >= 8 ? 'rating-high' : rating >= 6 ? 'rating-medium' : 'rating-low';
+    const ratingClass = rating >= 4.5 ? 'rating-high' : rating >= 3 ? 'rating-medium' : 'rating-low';
     const navigate = useNavigate();
     return (
         <div className="hotel-header">

@@ -205,7 +205,8 @@ const HotelPage: React.FC = () => {
                 <HotelHeader
                     name={hotel.name}
                     rating={hotel.rating}
-                    reviewCount={hotel.reviewCount}
+                    reviewCount={hotel.reviewCount ??
+                            (Array.isArray(hotel.reviews) ? hotel.reviews.length : 0)}
                     address={hotel.address}
                     isFavorite={hotel.isFavorite}
                     onShare={() => {

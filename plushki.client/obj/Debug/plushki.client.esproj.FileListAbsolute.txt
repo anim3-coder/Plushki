@@ -1,1 +1,2 @@
 C:\Users\max20\source\repos\Plushki\plushki.client\obj\Debug\plushki.client.esproj.CoreCompileInputs.cache
+D:\Projects\IPS\Plushki\plushki.client\obj\Debug\plushki.client.esproj.CoreCompileInputs.cache

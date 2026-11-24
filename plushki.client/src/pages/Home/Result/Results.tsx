@@ -83,7 +83,7 @@ const Results: React.FC<ResultsProps> = ({ hotels, totalCount, loading, error, d
             </div>
         );
     }
-
+    console.log(hotels)
     const dateRange = checkIn !== '' ? `${formatShortDate(checkIn)}. - ${formatShortDate(checkOut)}.` : '';
     return (
         <div className="results-section">
@@ -96,14 +96,32 @@ const Results: React.FC<ResultsProps> = ({ hotels, totalCount, loading, error, d
             </div>
 
             <div className="hotels-grid">
-                {localHotels.map(hotel => (
-                    <HotelCard
-                        key={hotel.id}
-                        {...hotel}
-                        onToggleFavorite={handleToggleFavorite}
-                        openHotel={openHotel}
-                    />
-                ))}
+                {localHotels.map(hotel => {
+                    // подстраховка: приводим к ожидаемому виду на лету
+                    const safeHotel: Hotel = {
+                        ...hotel,
+                        ratingText:
+                            hotel.ratingText ??
+                            (hotel.rating >= 4.5 ? 'Превосходно'
+                             : hotel.rating >= 4 ? 'Отлично'
+                             : hotel.rating >= 3 ? 'Хорошо'
+                             : hotel.rating >= 2 ? 'Неплохо'
+                             : 'Плохо'),
+                        reviewCount:
+                            hotel.reviewCount ??
+                            (Array.isArray(hotel.reviews) ? hotel.reviews.length : 0),
+                        currency: hotel.currency ?? '₽',
+                    };
+
+                    return (
+                        <HotelCard
+                            key={hotel.id}
+                            {...safeHotel}
+                            onToggleFavorite={handleToggleFavorite}
+                            openHotel={openHotel}
+                        />
+                    );
+                })}
             </div>
 
             <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />

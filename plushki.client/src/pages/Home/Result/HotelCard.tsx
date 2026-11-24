@@ -92,7 +92,7 @@ const HotelCard: React.FC<Hotel> = ({
                     <span>{ratingText} ({reviewCount} отзывов)</span>
                 </div>}
                 {(!(reviewCount > 0)) && <div className="hotel-rating">
-                    <span>{ratingText}Нет отзывов</span>
+                    <span>Нет отзывов</span>
                 </div>}
                 <div className="hotel-amenities">
                     {additionalServices.slice(0, 5).map((amenity, index) => (

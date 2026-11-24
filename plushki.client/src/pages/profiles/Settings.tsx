@@ -2,10 +2,11 @@
 import { useAuth } from '../../context/AuthContext';
 import React, { useState, useEffect } from 'react';
 import { type User } from '../../types/auth';
+import { useNavigate } from 'react-router-dom';
 
 const Settings: React.FC = () => {
     const { user, updateUser, logout } = useAuth(); // предполагается наличие updateUser в контексте
-
+    const navigate = useNavigate();
     // Локальное состояние формы
     const [formData, setFormData] = useState({
         firstName: '',
@@ -88,6 +89,7 @@ const Settings: React.FC = () => {
     const handleLogout = (e: React.MouseEvent) => {
         e.preventDefault();
         logout();
+        navigate('/');
     };
 
     return (

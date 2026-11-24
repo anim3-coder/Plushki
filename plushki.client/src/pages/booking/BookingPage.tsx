@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useAuth } from '../../context/AuthContext.tsx';
 
 const HotelInfo: React.FC<{ hotel: Hotel }> = ({ hotel }) => {
-    const ratingClass = hotel.rating >= 8 ? 'rating-high' : hotel.rating >= 6 ? 'rating-mid' : 'rating-low';
+    const ratingClass = hotel.rating >= 4.5 ? 'rating-high' : hotel.rating >= 3 ? 'rating-medium' : 'rating-low';
     return (
         <div className="hotel-info">
             <h3>{hotel.name}</h3>
@@ -450,6 +450,7 @@ const BookingSummary: React.FC<{
     console.log(room);
     return (
         <div className="booking-summary-pay">
+
             <h2>Детали бронирования</h2>
             <HotelInfo hotel={hotel} />
             <RoomInfo room={room} child={child} adults={adults} />
@@ -488,29 +489,49 @@ const BookingPage: React.FC = () => {
     const taxes = Math.round(subtotal * 13 / 100);
     const total = subtotal + serviceFee + taxes;
 
-    // Загрузка отеля и комнаты
+
+
     useEffect(() => {
-        if (!hotelId || !roomId) return;
+    if (!hotelId || !roomId) return;
 
-        const fetchData = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-                const hotelData = await axios.get(`/api/Hotels/${hotelId}`);
-                const roomData = await axios.get(`/api/hotels/${hotelId}/Rooms/${roomId}`);
-                console.log(hotelData.data);
-                console.log(roomData.data);
-                setHotel(hotelData.data);
-                setSelectedRoom(roomData.data);
-            } catch (err) {
-                setError(err instanceof Error ? err.message : 'Ошибка загрузки');
-            } finally {
-                setLoading(false);
-            }
-        };
+    const fetchData = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const hotelData = await axios.get(`/api/Hotels/${hotelId}`);
+            const roomData = await axios.get(`/api/hotels/${hotelId}/Rooms/${roomId}`);
 
-        fetchData();
-    }, [hotelId, roomId]);
+            const raw = hotelData.data;
+
+            const rawReviewCount =
+                raw.reviewCount ??
+                (Array.isArray(raw.reviews) ? raw.reviews.length : 0);
+
+            const normalizedHotel: Hotel = {
+                ...raw,
+                reviewCount:
+                    Number(rawReviewCount) > 0 ? String(rawReviewCount) : '',
+                currency: raw.currency ?? '₽',
+                ratingText:
+                    raw.ratingText ??
+                    (raw.rating >= 4.5 ? 'Превосходно'
+                     : raw.rating >= 4 ? 'Отлично'
+                     : raw.rating >= 3 ? 'Хорошо'
+                     : raw.rating >= 2 ? 'Неплохо'
+                     : 'Плохо'),
+            };
+
+            setHotel(normalizedHotel);
+            setSelectedRoom(roomData.data);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Ошибка загрузки');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    fetchData();
+}, [hotelId, roomId]);
 
     const handleBookingSubmit = async (formData: any) => {
         
